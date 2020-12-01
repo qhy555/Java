@@ -1,0 +1,75 @@
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.net.URL;
+
+
+public class App {
+    private JPanel mypanel=new JPanel();
+    private JLabel bg=new JLabel();
+    private JLabel lq=new JLabel();
+    private JLabel number=new JLabel();
+    int x=400;
+    int y=200;
+    private App(){
+        mypanel.setFocusable(true);
+        mypanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e){
+                super.keyPressed(e);
+                switch (e.getKeyCode()){
+                    case KeyEvent.VK_LEFT:
+                        x-=10;
+                        lq.setBounds(x, y, 100, 100);
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        x+=10;
+                        lq.setBounds(x, y, 100, 100);
+                        break;
+                    case KeyEvent.VK_UP:
+                        y-=10;
+                        lq.setBounds(x, y, 100, 100);
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        y+=10;
+                        lq.setBounds(x, y, 100, 100);
+                        break;
+                }
+                if (lq.getX()>370&&lq.getX()<830&&lq.getY()>660&&lq.getY()<870){
+
+                    number.setText("得分:"+1);
+                }
+
+                System.out.println(lq.getX());
+                System.out.println(lq.getY());
+            }
+        });
+
+    }
+    void  go(){
+        JFrame jFrame=new JFrame("键盘监听事件");
+        mypanel.setLayout(null);
+        URL bg_path = App.class.getResource("img/background.jpg");
+        URL lq_path = App.class.getResource("img/ball.gif");
+        bg.setIcon(new ImageIcon(bg_path));
+        lq.setIcon(new ImageIcon(lq_path));
+        bg.setBounds(0,0,1000,1000);
+        lq.setBounds(x,y,68,68);
+        number.setBounds(0, 0, 100, 100);
+        mypanel.add(number);
+        mypanel.add(lq);
+        mypanel.add(bg);
+
+
+        jFrame.setContentPane(mypanel);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setBounds(0,0,1000,1000);
+        jFrame.setVisible(true);
+
+    }
+
+    public static void main(String[] args) {
+        new App().go();
+    }
+
+}
