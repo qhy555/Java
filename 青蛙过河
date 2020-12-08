@@ -11,7 +11,7 @@ public class App {
     JLabel label_frog3=new JLabel();
     JLabel label_score=new JLabel();
     JTextArea textArea_UserInput=new JTextArea();
-    int  score=0,score1=1,score2=0,score3=0;
+    int  score,score1,score2,score3;
     //构造方法
     public App() {
         myPanel.setFocusable(true);
@@ -24,12 +24,21 @@ public class App {
 
                 if (textArea_UserInput.getText().equals("hello")){
                     label_frog.setBounds(380,226,128,128);
+                     score1=1;
+                    score=score1+score2+score3;
+                    label_score.setText("得分："+score);
                 }
                 if (textArea_UserInput.getText().equals("world")){
                     label_frog2.setBounds(256,110,128,128);
+                     score2=1;
+                    score=score1+score2+score3;
+                    label_score.setText("得分："+score);
                 }
                 if (textArea_UserInput.getText().equals("hi")){
                     label_frog3.setBounds(680,26,128,128);
+                     score3=1;
+                    score=score1+score2+score3;
+                    label_score.setText("得分："+score);
                 }
                 if (e.getKeyCode()==KeyEvent.VK_DOWN){
                    textArea_UserInput.setText("");
