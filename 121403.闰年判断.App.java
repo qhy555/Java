@@ -15,10 +15,10 @@ public class App {
 		
 			year=-year;
 			if(year%4==0&&year%100!=0||year%400==0){
-				System.out.print("公元前"+year+"年是："+"闰年");
+				System.out.print("公元前"+year+"年是：闰年");
 			}else
 			{
-				System.out.print("公元前"+year+"不是闰年");
+				System.out.print("公元前"+year+"年：不是闰年");
 			}
 			scan.close();
 		}else if (0<year&&year<3200) {
@@ -26,7 +26,7 @@ public class App {
 				System.out.print("公元"+year+"年是："+"闰年");
 			}else
 			{
-				System.out.print("公元"+year+"不是闰年");
+				System.out.print("公元"+year+"年：不是闰年");
 			}
 			scan.close();
 		}
