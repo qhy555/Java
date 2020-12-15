@@ -1,0 +1,156 @@
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class D121101 {
+    private JPanel jPanel=new JPanel();//窗体对象
+
+    private JLabel jLabel=new JLabel();
+    List<JLabel> label_list=new ArrayList<>();
+    int map2[][]={
+            {1,2,3},
+            {4,5,6},
+            {7,8,0}
+    };
+    int map1[][]={
+            {8,6,1},
+            {7,2,5},
+            {4,3,0}
+    };
+    int cell=213;
+    int  count=0;
+    private D121101(){
+        jPanel.setFocusable(true);
+        jPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);//敲击任意键。
+                if (e.getKeyCode()== KeyEvent.VK_UP) {
+                    new Zero().goUp(map1);
+                    showMyGame();
+                }
+                if (e.getKeyCode()== KeyEvent.VK_DOWN) {
+                    new Zero().goDown(map1);
+                    showMyGame();
+                }
+                if (e.getKeyCode()== KeyEvent.VK_LEFT) {
+                    new Zero().goLeft(map1);
+                    showMyGame();
+                }
+                if (e.getKeyCode()== KeyEvent.VK_RIGHT) {
+                    new Zero().goRight(map1);
+                    showMyGame();
+                }
+                if (map1==map2){
+                    JOptionPane.showMessageDialog(jPanel, "通过成功！", "标题",JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+
+    }
+    //    为了使程序结构清晰，设置一个方法来显示所有组件showMyGame()
+    void showMyGame(){
+        //移动矩阵
+        for (int row = 0; row < map1.length; row++) {
+            for (int column = 0; column < map1[0].length; column++) {
+                label_list.add(new JLabel());
+                java.net.URL imgURL = D121101.class.getResource("images/pintu_0"+map1[row][column]+".jpg");
+                label_list.get(row*3+column).setIcon(new ImageIcon(imgURL));
+                label_list.get(row*3+column).setBorder(BorderFactory.createRaisedBevelBorder());
+                label_list.get(row*3+column).setBounds(column*cell,row*cell,cell,cell);
+                jPanel.add(label_list.get(row*3+column));
+                jPanel.repaint();
+            }
+        }
+    }
+    void go(){
+        JFrame jFrame=new JFrame("青蛙过河");
+        jPanel.setLayout(null);
+        //遍历图片到数组
+        showMyGame();
+        jFrame.setContentPane(jPanel);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setBounds(0,0,640,640);
+        jFrame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new D121101().go();
+    }
+
+
+
+    public static class Zero {
+        void goLeft(int array2d[][]){
+//        遍历开始
+            for (int row = 0; row < array2d.length; row++) {
+                for (int column = 0; column < array2d[0].length; column++) {
+                    if(array2d[row][column]==0){
+//                    0在左边界
+                        if(column==0){
+
+                        }
+//                   非左边界
+                        else{
+                            int c=array2d[row][column];
+                            array2d[row][column]=array2d[row][column-1];
+                            array2d[row][column-1]=c;
+                            return;
+                        }
+
+                    }
+                }
+            }
+//        遍历结束
+
+        }
+        void  goRight(int array2d[][]){//跳格
+            for (int row = 0; row < array2d.length; row++) {
+                for (int column = 0; column < array2d[0].length; column++) {
+                    if(array2d[row][column]==0){
+                        if(column==array2d[0].length-1){ }else {
+                            int c=0;
+                            c=array2d[row][column+1];
+                            array2d[row][column]=c;
+                            array2d[row][column+1]=0;
+                            return;
+                        }
+                    }
+                }
+            }
+
+        }
+        void  goUp(int array2d[][]){
+            for (int row = 0; row < array2d.length; row++) {
+                for (int column = 0; column < array2d[0].length; column++) {
+                    if(array2d[row][column]==0){
+                        if(row==0){ }else {
+                            int c=array2d[row][column];
+                            array2d[row][column]=array2d[row-1][column];
+                            array2d[row-1][column]=c;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        void goDown(int array2d[][]){//跳格
+            for (int row = 0; row < array2d.length; row++) {
+                for (int column = 0; column < array2d[0].length; column++) {
+                    if(array2d[row][column]==0){
+                        if(row==array2d.length-1){ } else {
+                            int c=array2d[row][column];
+                            array2d[row][column]=array2d[row+1][column];
+                            array2d[row+1][column]=c;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
